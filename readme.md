@@ -7,7 +7,9 @@ A file based solution for managing files, assets, and information for your work 
 1. run `npm install` to install package dependencies
 2. run `npm link` to allow you to run 'sp ...' from the command line
 
-## Projects
+## Commands
+
+### Projects
 
 | Action | Script |
 |-|-|
@@ -15,7 +17,7 @@ A file based solution for managing files, assets, and information for your work 
 | delete project | `sp -p {project_name} -d` |
 | delete all projects | `sp -p -d all` |
 
-## Notes
+### Notes
 
 | Action | Script |
 |-|-|
@@ -23,7 +25,7 @@ A file based solution for managing files, assets, and information for your work 
 | create requirement | `sp -n req-{feature}.md` |
 | create wiki | `sp -n wiki-{article}.md` |
 
-## Logs
+### Logs
 
 | Action | Script |
 |-|-|
