@@ -24,7 +24,7 @@ exports.create = (project_name) => {
         console.log(`creating new project: ${project_name}`.bold);
         
         folder.make(project_path, project_name);
-        file.copy('./templates/project.md', project_path, `${project_path}/${project_name}.md`);
+        // file.copy('./templates/project.md', project_path, `${project_path}/${project_name}.md`);
         
         console.log('SUCCESS!'.green)
     } else {
