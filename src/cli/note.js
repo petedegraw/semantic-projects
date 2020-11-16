@@ -2,6 +2,7 @@ const fs = require('fs');
 const fsp = require('fs').promises;
 var colors = require('colors');
 const inquirer = require('inquirer');
+const moment = require('moment');
 const folder = require('../utils/folder');
 const file = require('../utils/file');
 const constants = require('../constants');
@@ -58,11 +59,7 @@ exports.create = (file_name) => {
           fs.readFile(`./templates/${type}.md`, function(err, buf) {
             // console.log(typeof buf.toString());
             data = buf.toString();
-  
-            // get today's date
-            let date_unformatted = new Date();
-            let date = date_unformatted.getFullYear() + '-' + date_unformatted.getDate() + '-' + date_unformatted.getMonth();
-            data = data.replace(':date', date.toString());
+            data = data.replace(/:date/g, moment().format('YYYY-MM-DD'));
             
             // add a title
             if (answers.title !== '') {

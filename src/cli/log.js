@@ -2,6 +2,7 @@ const fs = require('fs');
 const fsp = require('fs').promises;
 var colors = require('colors');
 const inquirer = require('inquirer');
+const moment = require('moment');
 const folder = require('../utils/folder');
 const file = require('../utils/file');
 const constants = require('../constants');
@@ -33,56 +34,46 @@ exports.create = (file_name) => {
         }
       ])
       .then(answers => {
-        const new_file = `${dir_path}/${answers.project}/log.md`;
+        const log_file = `${dir_path}/${answers.project}/log.md`;
 
-        // get today's date
         let log_data = '';
-        let date_unformatted = new Date();
-        let date = date_unformatted.getFullYear() + '-' + date_unformatted.getDate() + '-' + date_unformatted.getMonth();
 
-        log_data = `\n|${date}|${answers.message}|`;
+        log_data = `\n|${moment().format('MMM Do YYYY, h:mm a')}|${answers.message}|`;
 
-        // console.info('Create new file in', answers.project.green.bold);
-        fs.stat(new_file, function(err, stat) {
+        function appendFile(fileToAppend, dataForFile) {
+          fs.appendFile(fileToAppend, dataForFile, (err) => {
+            if (err) console.log(err);
+            console.log(`log entry added to ${fileToAppend}`.green.bold);
+          });
+        }
+
+        fs.stat(log_file, function(err, stat) {
           if (err == null) {
-              console.log(`${new_file} already exists`.bold.red);
-              fs.appendFile(new_file, log_data, (err) => {
-                if (err) console.log(err);
-                console.log(`${new_file} file created`);
-              });
+            // file already exists: append file
+            console.log('...updating log...'.gray);
+            appendFile(log_file, log_data);
           } else if (err.code === 'ENOENT') {
-              // does not exist, create the file, append the file
-              file.copy('./templates/log.md', new_file, new_file);
+            
+            // file does not exist: create file, append file
+            let data = '';
+
+            // create file
+            fs.readFile('./templates/log.md', function(err, buf) {
               
-              let data = '';
+              data = buf.toString();
+              data = data.replace(/:title/g, answers.project);
+              data = data.replace(/:date/g, moment().format('YYYY-MM-DD'));
 
-              fs.readFile(new_file, function(err, buf) {
-                
-                data = buf.toString();
-                data = data.replace(/:title/g, answers.project)
+              file.write(log_file, data);
 
-                file.write(new_file, data);
-                // append file with log
-                fs.appendFile(new_file, log_data, (err) => {
-                  if (err) console.log(err);
-                  console.log(`${new_file} log entered`);
-                });
-              });
+              // append file
+              console.log('...updating log...'.gray);
+              setTimeout(() => appendFile(log_file, log_data), 500);
+            });
           } else {
               console.log('Some other error: ', err.code);
           }
         });
-        
-      
-
-        // if (type !== '') {
-        //   // copy a template file
-        //   file.copy(`./templates/${type}.md`, new_file, new_file);
-        // } else {
-        //   // create a new blank file
-        //   var createStream = fs.createWriteStream(`${dir_path}/${answers.project}/${file_name}`);
-        //   createStream.end();
-        // }
       });
   });
 }
