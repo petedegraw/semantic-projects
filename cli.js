@@ -2,6 +2,7 @@
 let argv = require('minimist')(process.argv.slice(2));
 const project = require('./src/cli/project');
 const note = require('./src/cli/note');
+const log = require('./src/cli/log');
 
 // console.dir(argv);
 
@@ -23,4 +24,10 @@ if (argv.p && argv.d && typeof argv.d === 'string' && argv.d === 'all') {
 // create note
 if (argv.n && argv.n !== true && argv.n !== true) {
   note.create(argv.n);
+}
+
+// Logs
+// create log entry
+if (argv.l) {
+  log.create();
 }
