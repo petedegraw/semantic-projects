@@ -26,13 +26,17 @@ exports.create = (file_name) => {
           name: 'project',
           message: 'Create a new note within which project?',
           choices: files,
+        },
+        {
+          type: 'input',
+          name: 'title',
+          message: 'Title heading?'
         }
       ])
       .then(answers => {
-        console.info('Adding new file to', answers.project.green.bold);
-        console.info('New File', `${dir_path}/${answers.project}/`, file_name.green.bold);
         const new_file = `${dir_path}/${answers.project}/${file_name}`;
         const file_type = file_name.substring(0, 4);
+
         let type = '';
         switch (file_type) {
           case 'wiki':
@@ -47,14 +51,43 @@ exports.create = (file_name) => {
           default:
             break;
         }
+
+        let data = '';
+
         if (type !== '') {
-          // copy a template file
-          file.copy(`./templates/${type}.md`, new_file, new_file);
+          fs.readFile(`./templates/${type}.md`, function(err, buf) {
+            // console.log(typeof buf.toString());
+            data = buf.toString();
+  
+            // get today's date
+            let date_unformatted = new Date();
+            let date = date_unformatted.getFullYear() + '-' + date_unformatted.getDate() + '-' + date_unformatted.getMonth();
+            data = data.replace(':date', date.toString());
+            
+            // add a title
+            if (answers.title !== '') {
+              data = data.replace(/:title/g, answers.title);
+            }
+    
+            console.info('Create new file in', answers.project.green.bold);
+            file.write(`${dir_path}/${answers.project}/${file_name}`, data);
+          });
         } else {
           // create a new blank file
           var createStream = fs.createWriteStream(`${dir_path}/${answers.project}/${file_name}`);
           createStream.end();
         }
+        
+      
+
+        // if (type !== '') {
+        //   // copy a template file
+        //   file.copy(`./templates/${type}.md`, new_file, new_file);
+        // } else {
+        //   // create a new blank file
+        //   var createStream = fs.createWriteStream(`${dir_path}/${answers.project}/${file_name}`);
+        //   createStream.end();
+        // }
       });
   });
 }

@@ -1,9 +1,9 @@
 ---
-title: Requirements
-date: 2020-09-01
+title: :title
+date: :date
 ---
 
-## Requirements
+## :title
 
 ### Authoring
 
