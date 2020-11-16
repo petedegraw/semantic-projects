@@ -34,5 +34,6 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 
 ## To Do
 
+- [ ] update project.js to work from constants
 - [ ] update requirements template
 - [ ] add meeting template
