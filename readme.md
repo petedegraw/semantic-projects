@@ -34,8 +34,12 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 |-|-|-|
 | create log entry | `sp -l` | prompts for which project in which to add or append the log.md file |
 
+### Meetings
+
+| Action | Script | Notes |
+|-|-|-|
+| create meeting entry | `sp -m` | prompts for which project in which to add or append the meetings.md file |
+
 ## To Do
 
-- [ ] update project.js to work from constants
 - [ ] update requirements template
-- [ ] add meeting template

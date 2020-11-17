@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-exports.create = (file_name) => {
+exports.create = () => {
 
   //passsing dir_path and callback function
   fs.readdir(process.env.dir_path, function (err, files) {
@@ -29,51 +29,51 @@ exports.create = (file_name) => {
         {
           type: 'rawlist',
           name: 'project',
-          message: 'Add a log entry to which project?',
+          message: 'Add a meeting entry to which project?',
           choices: projects,
         },
         {
           type: 'input',
-          name: 'message',
-          message: 'message?'
+          name: 'subject',
+          message: 'subject?'
         }
       ])
       .then(answers => {
-        const log_file = `${process.env.dir_path}/${answers.project}/log.md`;
+        const meeting_file = `${process.env.dir_path}/${answers.project}/meetings.md`;
 
-        let log_data = '';
+        let meeting_data = '';
 
-        log_data = `\n|${moment().format('MMM Do YYYY, h:mm a')}|${answers.message}|`;
+        meeting_data = `\n### ${moment().format('YYYY-MMM-DD - h:mm a')} - ${answers.subject}`;
 
         function appendFile(fileToAppend, dataForFile) {
           fs.appendFile(fileToAppend, dataForFile, (err) => {
             if (err) console.log(err);
-            console.log(`log entry added to ${fileToAppend}`.green.bold);
+            console.log(`meeting entry added to ${fileToAppend}`.green.bold);
           });
         }
 
-        fs.stat(log_file, function(err, stat) {
+        fs.stat(meeting_file, function(err, stat) {
           if (err == null) {
             // file already exists: append file
-            console.log('...updating log...'.gray);
-            appendFile(log_file, log_data);
+            console.log('...updating meeting...'.gray);
+            appendFile(meeting_file, meeting_data);
           } else if (err.code === 'ENOENT') {
             
             // file does not exist: create file, append file
             let data = '';
 
             // create file
-            fs.readFile('./templates/log.md', function(err, buf) {
+            fs.readFile('./templates/meetings.md', function(err, buf) {
               
               data = buf.toString();
               data = data.replace(/:title/g, answers.project);
               data = data.replace(/:date/g, moment().format('YYYY-MM-DD'));
 
-              file.write(log_file, data);
+              file.write(meeting_file, data);
 
               // append file
-              console.log('...updating log...'.gray);
-              setTimeout(() => appendFile(log_file, log_data), 500);
+              console.log('...updating meeting...'.gray);
+              setTimeout(() => appendFile(meeting_file, meeting_data), 500);
             });
           } else {
               console.log('Some other error: ', err.code);

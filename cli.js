@@ -4,6 +4,7 @@ const setup = require('./src/utils/setup');
 const project = require('./src/cli/project');
 const note = require('./src/cli/note');
 const log = require('./src/cli/log');
+const meeting = require('./src/cli/meeting');
 
 // console.dir(argv);
 
@@ -44,4 +45,10 @@ if (argv.n && argv.n !== true && argv.n !== true) {
 // create log entry
 if (argv.l) {
   log.create();
+}
+
+// Meetings
+// create meeting
+if (argv.m) {
+  meeting.create(argv.m);
 }
