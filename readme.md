@@ -1,5 +1,7 @@
 # Semantic Projects
 
+[TOC]
+
 ## Overview
 
 A file based project management solution for managing and creating files, notes, and information for your projects.
