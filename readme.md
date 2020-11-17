@@ -8,8 +8,9 @@ The command line interface and scripts use Node JS. The default templates may be
 
 ### Features
 
-- Markdown note templates for [projects](./templates/proj.md), [requirements](./templates/req.md), and [wiki](./templates/wiki.md) articles. You can customize the body of each template to fit your needs. Also includes basic YAML front matter for use on static sites.
-- Quick CLI commands for adding logs to [log files](./templates/log.md) and creating [meeting notes](./templates/meetings.md).
+- Markdown note templates for [projects](./templates/proj.md), [requirements](./templates/req.md), and [wiki](./templates/wiki.md) articles. You can customize the body of each template to fit your needs
+- Quick CLI commands for adding logs to [log files](./templates/log.md) and creating [meeting notes](./templates/meetings.md)
+- Basic YAML front matter for use in static sites
 
 ### Recommended Markdown Tools
 
