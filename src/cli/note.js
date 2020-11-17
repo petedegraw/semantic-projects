@@ -5,15 +5,14 @@ const inquirer = require('inquirer');
 const moment = require('moment');
 const folder = require('../utils/folder');
 const file = require('../utils/file');
-const constants = require('../constants');
-var glob = require('glob');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 exports.create = (file_name) => {
-  // const dir_path = '/Users/Shared/Dropbox/Biz/Projects';
-  const dir_path = '/Users/petedegraw/Dropbox/Biz/Projects';
 
   //passsing dir_path and callback function
-  fs.readdir(dir_path, function (err, files) {
+  fs.readdir(process.env.dir_path, function (err, files) {
       //handling error
       if (err) {
           return console.log('Unable to find or open the directory: ' + err);
@@ -35,7 +34,7 @@ exports.create = (file_name) => {
         }
       ])
       .then(answers => {
-        const new_file = `${dir_path}/${answers.project}/${file_name}`;
+        const new_file = `${process.env.dir_path}/${answers.project}/${file_name}`;
         const file_type = file_name.substring(0, 4);
 
         let type = '';
@@ -67,11 +66,11 @@ exports.create = (file_name) => {
             }
     
             console.info('Create new file in', answers.project.green.bold);
-            file.write(`${dir_path}/${answers.project}/${file_name}`, data);
+            file.write(`${process.env.dir_path}/${answers.project}/${file_name}`, data);
           });
         } else {
           // create a new blank file
-          var createStream = fs.createWriteStream(`${dir_path}/${answers.project}/${file_name}`);
+          var createStream = fs.createWriteStream(`${process.env.dir_path}/${answers.project}/${file_name}`);
           createStream.end();
         }
         
@@ -82,7 +81,7 @@ exports.create = (file_name) => {
         //   file.copy(`./templates/${type}.md`, new_file, new_file);
         // } else {
         //   // create a new blank file
-        //   var createStream = fs.createWriteStream(`${dir_path}/${answers.project}/${file_name}`);
+        //   var createStream = fs.createWriteStream(`${process.env.dir_path}/${answers.project}/${file_name}`);
         //   createStream.end();
         // }
       });

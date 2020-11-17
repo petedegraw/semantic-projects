@@ -3,16 +3,15 @@ const fsp = require('fs').promises;
 var colors = require('colors');
 const inquirer = require('inquirer');
 const moment = require('moment');
-const folder = require('../utils/folder');
 const file = require('../utils/file');
-// const constants = require('../constants');
-const constants = require('../../env');
-var glob = require('glob');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 exports.create = (file_name) => {
 
   //passsing dir_path and callback function
-  fs.readdir(constants.dir_path, function (err, files) {
+  fs.readdir(process.env.dir_path, function (err, files) {
       //handling error
       if (err) {
           return console.log('Unable to find or open the directory: ' + err);
@@ -33,7 +32,7 @@ exports.create = (file_name) => {
         }
       ])
       .then(answers => {
-        const log_file = `${constants.dir_path}/${answers.project}/log.md`;
+        const log_file = `${process.env.dir_path}/${answers.project}/log.md`;
 
         let log_data = '';
 

@@ -7,8 +7,8 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 ## Setup
 
 1. run `npm install` to install package dependencies
-2. run `npm start` to complete the setup
-   1. you will need to enter the directory path for where you want your projects kept, this may be something like '/Users/MyName/Dropbox/Business/Projects'
+2. run `echo 'dir_path=/Path/to/your/Projects' > .env` (using the path you will be using, might be something like '/Users/MyName/Dropbox/Business/Projects')
+3. run `npm start` to complete the setup
 
 ## Usage
 
@@ -16,6 +16,7 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 
 | Action | Script |
 |-|-|
+| list projects | `sp list projects` |
 | create project | `sp -p {project_name}` |
 
 ### Notes

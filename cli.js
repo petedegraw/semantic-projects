@@ -8,11 +8,17 @@ const log = require('./src/cli/log');
 // console.dir(argv);
 
 // setup
+// npm start
 if (argv.s && argv.s === 'init') {
   setup.init();
 }
 
 // Projects
+// list projects
+// sp list projects
+if (argv._[0] === 'list' && argv._[1] === 'projects') {
+  project.list();
+}
 // create project
 if (argv.p && argv.p !== true && argv.d !== true) {
   project.create(argv.p);
