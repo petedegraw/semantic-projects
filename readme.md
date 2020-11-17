@@ -28,16 +28,11 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 | create requirement | `sp -n req-{feature}.md` | prompts for which project in which to create the file |
 | create wiki | `sp -n wiki-{article}.md` | prompts for which project in which to create the file |
 
-### Logs
+### Logs & Meetings
 
 | Action | Script | Notes |
 |-|-|-|
 | create log entry | `sp -l` | prompts for which project in which to add or append the log.md file |
-
-### Meetings
-
-| Action | Script | Notes |
-|-|-|-|
 | create meeting entry | `sp -m` | prompts for which project in which to add or append the meetings.md file |
 
 ## To Do
