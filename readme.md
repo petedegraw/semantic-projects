@@ -9,7 +9,7 @@ The command line interface and scripts use Node JS. The default templates may be
 ### Features
 
 - Markdown note templates for [projects](./templates/proj.md), [requirements](./templates/req.md), and [wiki](./templates/wiki.md) articles. You can customize the body of each template to fit your needs. Also includes basic YAML front matter for use on static sites.
-- Quick CLI commands for adding logs to log files and creating meeting entries.
+- Quick CLI commands for adding logs to [log files](./templates/log.md) and creating [meeting notes](./templates/meetings.md).
 
 ### Recommended Markdown Tools
 
@@ -42,6 +42,7 @@ Recommended Folder Structure
 │   ├── Company A - Project Name
 │   ├── Company B - Project Name
 │   └── Personal - Project Name
+└── ...
 ```
 
 ### Projects
@@ -52,6 +53,8 @@ Recommended Folder Structure
 | create project | `sp -p {project_name}` |
 
 ### Notes
+
+Filename format: `{note_type}-{your-reference}.md` (allows for quick filtering and Saved Searches in Mac OS based the note types)
 
 | Action | Script | Notes |
 |-|-|-|
