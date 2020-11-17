@@ -7,7 +7,8 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 ## Setup
 
 1. run `npm install` to install package dependencies
-2. run `echo 'dir_path=/Path/to/your/Projects' > .env` (using the path you will be using, might be something like '/Users/MyName/Dropbox/Business/Projects')
+2. run `echo 'dir_path=/Path/to/your/Projects' > .env`
+  using the path you will be using, might be something like '/Users/MyName/Dropbox/Business/Projects')
 3. run `npm start` to complete the setup
 
 ## Usage
@@ -21,17 +22,17 @@ Includes markdown note templates for projects, requirements, and wiki articles. 
 
 ### Notes
 
-| Action | Script |
-|-|-|
-| create project | `sp -n proj-{project_name}.md` |
-| create requirement | `sp -n req-{feature}.md` |
-| create wiki | `sp -n wiki-{article}.md` |
+| Action | Script | Notes |
+|-|-|-|
+| create project | `sp -n proj-{project_name}.md` | prompts for which project in which to create the file |
+| create requirement | `sp -n req-{feature}.md` | prompts for which project in which to create the file |
+| create wiki | `sp -n wiki-{article}.md` | prompts for which project in which to create the file |
 
 ### Logs
 
-| Action | Script |
-|-|-|
-| create log entry | `sp -l` |
+| Action | Script | Notes |
+|-|-|-|
+| create log entry | `sp -l` | prompts for which project in which to add or append the log.md file |
 
 ## To Do
 
