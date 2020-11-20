@@ -1,0 +1,329 @@
+<!doctype html><head><title>undefined for undefined</title><meta name="description" content="undefined" /></head><body><h1 id="custom-dotcms-api-for-ecx-metro-data">Custom dotCMS API for ECX Metro Data</h1>
+<h2 id="user-story">User Story</h2>
+<p>As a product owner I want an API for retrieving Metro location data so that it can be used in the ECX page.</p>
+<h2 id="business-impact">Business Impact</h2>
+<p>This also allows web production to author necessary data that appears in the ECX page.</p>
+<h2 id="reference">Reference</h2>
+<pre><code class="language-{">  "updatedAt": "2020-07-02T14:00:15.674Z",
+  "totalCount": 57,
+  "langLoc": "la-GL",
+  "metros": [{
+      "createdAt": "2020-07-02T14:00:15.674Z",
+      "updatedAt": "2020-07-02T14:00:15.674Z",
+      "identifier": "bb592ad9-4ad6-465e-b4d2-4d8104d999d7",
+      "code": "AD",
+      "description": "Our Abu Dhabi International Business Exchange™ (IBX®)...",
+      "mapImage": "/www/locations/images/maps/abu-dhabi-map-760.png",
+      "name": "Abu Dhabi Data Center",
+      "nearestMetros": [
+        {
+          "code": "ML",
+          "name": "Milan",
+          "url": "/locations/europe-colocation/italy-colocation/milan-data-centers/"
+        },
+        {
+          "code": "LS",
+          "name": "Lisbon",
+          "url": "/locations/europe-colocation/portugal-colocation/lisbon-data-centers/"
+        }
+      ],
+      "url": "/locations/europe-colocation/united-arab-emirates-colocation/abu-dhabi-center/"
+    },
+    {...}]
+}
+</code></pre>
+<h2 id="component-attributes">Component Attributes</h2>
+<p>To be added to the Location Content Type under the Metric Asset field.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Attribute Name</th><th>Example</th><th>Required, Optional, or Conditional</th><th>Conditional Business Rules</th><th>Field Type</th><th>Field Specifications</th><th>Authored, Dynamic, System Generated or Static</th><th>Field Dependency</th><th>Author Help Text</th><th>Notes</th></tr></thead><tbody><tr><td>A1</td><td>Location Code</td><td>SV</td><td>optional</td><td></td><td>textfield</td><td>value must be unique</td><td>authored</td><td></td><td>Equinix location code</td><td></td></tr><tr><td>A2</td><td>Nearest Locations</td><td>LA,SE</td><td>optional</td><td></td><td>textfield</td><td></td><td>authored</td><td></td><td>comma-separated value of Equinix location codes</td><td></td></tr></tbody></table>
+<h2 id="authoring-requirements">Authoring Requirements</h2>
+<ul>
+<li>As a content author I want a textfield called Location Code so that I can specify a company wide code for that location. (e.g. "SV" for Silicon Valley)</li>
+<li>As a content author I want to author a Location Code value on the Location Content Type in the CMS.</li>
+<li>As a content author I want to author a Location Code value on the la-GL variant only and have other variants use the la-GL value. (or have the API response only reference the la-GL variant for the Location Code)</li>
+<li>As a content author I want a textfield called Nearest Locations so that I can specify the nearest location codes for that location. (e.g. "LA,SE" for Silicon Valley)</li>
+<li>As a content author I want to author Nearest Locations value as comma separated values</li>
+<li>As a content author I want to author a Nearest Locations value on the la-GL variant only and have other variants use the la-GL value. (or have the API response only reference the la-GL variant for the Nearest Locations)</li>
+</ul>
+<h2 id="interface-requirements">Interface Requirements</h2>
+<ul>
+<li>As a product owner I want to request metro location data from the CMS using a REST API.</li>
+<li>As a product owner I want to request metro location data from the CMS for read only access using a GET request.</li>
+<li>As a product owner I want an endpoint for requesting all the metro instances from the CMS.</li>
+<li>As a product owner I want an endpoint for requesting only the metro instances from the CMS in the "published" state.</li>
+<li>As a product owner I want to use the query parameter <code>metroCodes={metroCode}</code> to request one or more metro instances from the CMS.
+<ul>
+<li>single example: <code>metroCodes=AM</code></li>
+<li>multiple example: <code>metroCodes=AM,DC</code></li>
+</ul>
+</li>
+<li>As a product owner I want to use the query parameter <code>sl_locale={language-locale}</code> to request data for a specific language.
+<ul>
+<li>example: <code>sl_locale=en-GB</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="functional-requirements">Functional Requirements</h2>
+<ul>
+<li>As a product owner I want the API response to be a JSON format.</li>
+<li>As a product owner I want a 200 response when the request is same origin.</li>
+<li>As a product owner I want a 200 response when the request is from an allowed address:
+<ul>
+<li>localhost (any port)</li>
+<li>eq-ecx-fabric-search.rocketsource.co/</li>
+<li>eq-ecx-fabric-search.dev.rocketsource.co/</li>
+</ul>
+</li>
+<li>As a product owner I want a 401 response when the request is not from an allowed origin.</li>
+<li>As a product owner when there is a 401 response I want the response body  to be <code>{ "message": "authentication failed or user doesn't have permissions for requested operation" }</code></li>
+<li>As a product owner I want a 400 response when the request could not be understood or was missing parameters.</li>
+<li>As a product owner where there is a 400 response I want the repsonse body to be <code>{ "message": "the request could not be understood or was missing required parameter" }</code></li>
+<li>As a product owner I want a 405 response when the requested method is not supported.</li>
+<li>As a product owner where there is a 400 response I want the repsonse body to be <code>{ "message": "the requested method is not supported" }</code></li>
+<li>As a product owner when there is a <code>metroCodes</code> query parameter and the query value includes one metro code I want the response to return an array of Metro Data Objects by last modified</li>
+</ul>
+<h3 id="ecx-metros-data-object">ECX Metros Data Object</h3>
+<ul>
+<li>As a product owner I want the response to have the following properties in this order: updatedAt, langLoc, totalCount, metros.</li>
+<li>As a product owner I want the response to have a "updatedAt" property that returns a string where the value is the last modified datetime for the aggregate of metro data results.</li>
+<li>As a product owner I want the response to have a "langLoc" property that returns a string where the value is the language and locale for response data.</li>
+<li>As a product owner I want the response to have a "totalCount" property that returns an integer where the value is the total number of metro data objects in the response.</li>
+<li>As a product owner I want the response to have a "metros" property that returns an array of Metro Data objects.</li>
+<li>As a product owner given the "metros" is empty or null I want it the value to be an empty array.</li>
+<li>As a product owner I want the metros objects to be sorted alphabetically (A-Z) by the <code>name</code> property.</li>
+<li>As a product owner given the request includes a <code>metroCodes</code> query parameter I want the response to only contain the metro data that match those codes.</li>
+<li>As a product owner I want the response to be in the language and locale for the request's TLD.
+<ul>
+<li>e.g. a request from equinix.co.jp would return the langugage/locale of ja-JP</li>
+</ul>
+</li>
+<li>As a product owner given the request includes a <code>sl_locale</code> query parameter I want the response to be in the matching language and locale.</li>
+<li>As a product owner given the response is for a translated language and there is text that is not translated I want the non-translated values to be in US English (or fallback to US English) so that there is always text present.</li>
+<li>As a product owner given a value on an object is empty or null I want the value to be an empty string. (e.g. Metro Data Object or the Nearest Metro Data Object)</li>
+</ul>
+<h3 id="metro-data-object">Metro Data Object</h3>
+<ul>
+<li>As a product owner I want the metro data objects to have the following properties in this order: createdAt, updatedAt, identifier, code, description, mapImage, name, nearestMetros, url.</li>
+<li>As a product owner I want the metro data object to have a "createdAt" property that returns a string where the value is the created datetime for that Location content type instance.</li>
+<li>As a product owner I want the metro data object to have a "updatedAt" property that returns a string where the value is the last modified datetime for that Location content type instance.</li>
+<li>As a product owner I want the metro data object to have a "identifier" property that returns a string where the value is the CMS identifier for that location content instance.</li>
+<li>As a product owner I want the metro data object to have a "code" property that returns a string where the value is the Location Code value for that Location content instance.</li>
+<li>As a product owner I want the metro data object to have a "description" property that returns a string where the value is the Description value for that Location content instance.</li>
+<li>As a product owner I want the metro data object to have a "mapImage" property that returns a string where the value is a relative link to the metro map image from that metro page on the marketing website.</li>
+<li>As a product owner I want the metro data object to have a "name" property that returns a string where the value is the Title value for that Location content type instance.</li>
+<li>As a product owner I want the metro data object to have a "nearestMetros" property that returns an array of Nearest Metros Objects.</li>
+<li>As a product owner given the "nearestMetros" property on the metro data object is empty or null I want it to return an empty array. (e.g. a content author has not authored any Nearest Location for the given metro)</li>
+<li>As a product owner given the "nearestMetros" property on the metro data object has one or more values I want it to return the nearest metro objects in the order of the authored location/metro codes. (e.g. "LA,SE" for Silicon Valley would return "Los Angeles" at index 0, "Seattle" at index 1)</li>
+<li>As a product owner I want the metro data object to have a "url" property that returns a string where the value is the relative URL to that metro page on the marketing website.</li>
+</ul>
+<h3 id="nearest-metros-data-object">Nearest Metros Data Object</h3>
+<ul>
+<li>As a product owner I want the Nearest Metro data objects to have the following properties in this order: code, name, url</li>
+<li>As a product owner I want the Nearest Metro data object to have a "code" property that returns a string where the value is the Location Code value for that Location content type instance.</li>
+<li>As a product owner I want the Nearest Metro data object to have a "name" property that returns a string where the value the Title value for that Location content type instance.</li>
+<li>As a product owner I want the Nearest Metro data object to have a "url" property that returns a string where the value is the relative URL to that metro page on the marketing website.</li>
+</ul>
+<h2 id="parameter-attributes">Parameter Attributes</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Type</th><th>Description</th><th>Notes</th></tr></thead><tbody><tr><td><code>metroCodes</code></td><td><code>string</code></td><td>unique metros expected by the client</td><td>comma separated values of metro codes (e.g. "LA,SE")</td></tr><tr><td><code>sl_locale</code></td><td><code>string</code></td><td>unique languaguage/locale expected by the client</td><td>e.g. ja-JP or ja-jp</td></tr></tbody></table>
+<h2 id="response-attributes">Response Attributes</h2>
+<h3 id="ecx-metros">ECX Metros</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>A1</td><td><code>updatedAt</code></td><td><code>string</code></td><td>last modified datetime for the aggregate of metro data results</td></tr><tr><td>A2</td><td><code>langLoc</code></td><td><code>string</code></td><td>language and locale of the response data</td></tr><tr><td>A3</td><td><code>totalCount</code></td><td><code>number</code></td><td>total number of metro data objects</td></tr><tr><td>A4</td><td><code>metros</code></td><td><code>array</code></td><td>Metro Data objects</td></tr></tbody></table>
+<h3 id="metro">Metro</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>A1</td><td><code>createdAt</code></td><td><code>string</code></td><td>created datetime for the Location content type instance</td></tr><tr><td>A2</td><td><code>updatedAt</code></td><td><code>string</code></td><td>last modified datetime for the Location content type instance</td></tr><tr><td>A3</td><td><code>identifier</code></td><td><code>string</code></td><td>identifier for the location content instance</td></tr><tr><td>A4</td><td><code>code</code></td><td><code>string</code></td><td>Location Code value for the Location content instance</td></tr><tr><td>A5</td><td><code>description</code></td><td><code>string</code></td><td>Description value for the Location content instance</td></tr><tr><td>A6</td><td><code>mapImage</code></td><td><code>string</code></td><td>relative link to the metro map image from the metro page</td></tr><tr><td>A7</td><td><code>name</code></td><td><code>string</code></td><td>Title value for the Location content type instance</td></tr><tr><td>A8</td><td><code>nearestMetros</code></td><td><code>array</code></td><td>Nearest Metro Data Objects</td></tr><tr><td>A9</td><td><code>url</code></td><td><code>string</code></td><td>relative URL to the metro page</td></tr></tbody></table>
+<h3 id="nearest-metro">Nearest Metro</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>A1</td><td><code>code</code></td><td><code>string</code></td><td>Location Code value for the Location content type instance</td></tr><tr><td>A2</td><td><code>name</code></td><td><code>string</code></td><td>Title value for the Location content type instance</td></tr><tr><td>A3</td><td><code>url</code></td><td><code>string</code></td><td>relative URL to that metro page</td></tr></tbody></table></body></html>

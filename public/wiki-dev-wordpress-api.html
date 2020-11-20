@@ -1,0 +1,116 @@
+<!doctype html><head><title>WordPress API for undefined</title><meta name="description" content="undefined" /></head><body><h1 id="wordpress-api">WordPress API</h1>
+<h2 id="posts">Posts</h2>
+<p>List Posts: <a href="https://blog.equinix.com/wp-json/wp/v2/posts/">https://blog.equinix.com/wp-json/wp/v2/posts/</a>
+List Posts with <code>per_page</code> argument: <a href="https://blog.equinix.com/wp-json/wp/v2/posts/?per_page=10">https://blog.equinix.com/wp-json/wp/v2/posts/?per_page=10</a>
+List Posts with <code>per_page</code> and <code>offset</code> arguments: <a href="https://blog.equinix.com/wp-json/wp/v2/posts/?per_page=1&#x26;offset=1">https://blog.equinix.com/wp-json/wp/v2/posts/?per_page=1&#x26;offset=1</a></p>
+<h2 id="featured-posts">Featured Posts</h2>
+<p>Featured Posts: <a href="https://blog.equinix.com/wp-json/wp/v2/posts/?tags=2433">https://blog.equinix.com/wp-json/wp/v2/posts/?tags=2433</a>
+Latest Featured Post: <a href="https://blog.equinix.com/wp-json/wp/v2/posts/?tags=2433&#x26;per_page=1">https://blog.equinix.com/wp-json/wp/v2/posts/?tags=2433&#x26;per_page=1</a></p>
+<p>Available Arguments: <a href="https://developer.wordpress.org/rest-api/reference/posts/#arguments">https://developer.wordpress.org/rest-api/reference/posts/#arguments</a></p>
+<p>The “Featured” tag is ID 2433</p>
+<p>![Blog Feed API Endpoints](Blog Feed API Endpoints.png)</p>
+<h2 id="posts-by-language">Posts by Language</h2>
+<ol>
+<li>
+<p>Select the language from the country dropdown menu</p>
+</li>
+<li>
+<p>View the <code>link</code> header in the network tab
+![Blog Feed Country API Endpoints](Blog Feed Country API Endpoints.png)</p>
+</li>
+<li>
+<p>Get the country ID
+4. Use the Posts endpoint with <code>country</code> argument to get in language posts</p>
+<p>e.g. <a href="https://blog.equinix.com/wp-json/wp/v2/posts/?country=2451&#x26;per_page=1">https://blog.equinix.com/wp-json/wp/v2/posts/?country=2451&#x26;per_page=1</a></p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Country Locale</th><th>Country ID</th></tr></thead><tbody><tr><td>Australia EN</td><td>2448</td></tr><tr><td>Brasil PT</td><td>2449</td></tr><tr><td>Canada FR</td><td>3288</td></tr><tr><td>China CN</td><td>2617</td></tr><tr><td>Finland FI</td><td>2619</td></tr><tr><td>France FR</td><td>2622</td></tr><tr><td>Germany DE</td><td>2450</td></tr><tr><td>Hong Kong EN</td><td>2687</td></tr><tr><td>Italy IT</td><td>2631</td></tr><tr><td>Japan JP</td><td>2451</td></tr><tr><td>Korea KR</td><td>2608</td></tr><tr><td>Latin America ES</td><td>2452</td></tr><tr><td>Nederlands NL</td><td>2453</td></tr><tr><td>Poland EN</td><td>2683</td></tr><tr><td>Portugal PT</td><td>3274</td></tr><tr><td>Singapore EN</td><td>2686</td></tr><tr><td>Spain ES</td><td>2637</td></tr><tr><td>Sweden SE</td><td>2610</td></tr><tr><td>UK &#x26; Ireland EN</td><td>3368</td></tr><tr><td>Turkey TR</td><td>2995</td></tr></tbody></table></body></html>

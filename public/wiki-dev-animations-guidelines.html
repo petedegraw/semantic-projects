@@ -1,0 +1,77 @@
+<!doctype html><head><title>undefined for undefined</title><meta name="description" content="undefined" /></head><body><h1 id="technical-animation-guidelines">Technical Animation Guidelines</h1>
+<h2 id="overview">Overview</h2>
+<p>UI components and pages may require animations to enhance the user  experience. The goal of this document is to provide technical direction  for animating components in an easy to use and consistent manner while  also maintaining optimal webpage performance.</p>
+<h2 id="triggers">Triggers</h2>
+<ol>
+<li>page load - an animation runs when the page loads</li>
+<li>user action - an animation runs when the user interacts with the page or a component
+<ol>
+<li>scroll - when the user scrolls up/down the page, a component animation runs (also known as "lazy load" or animate on scroll)</li>
+<li>click/touch - when the user clicks/touches an element, an animation runs</li>
+<li>while scroll and click/touch are the more common use cases, there are other  user events such as: focus, input, mouse, drag, touch, etc. that may  require animations
+<ol>
+<li>available event types: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event">https://developer.mozilla.org/en-US/docs/Web/API/Event</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="strategy">Strategy</h2>
+<p>In order to achieve the expected animation, one or more of the following should be used in this order:</p>
+<ol>
+<li>AOS.js library, version 2.3.4 - <a href="https://github.com/michalsnik/aos/tree/v2.3.4#basic-usage">documentation</a>, <a href="https://michalsnik.github.io/aos/">demo</a></li>
+<li>Custom CSS animations or <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API">JS Animation API</a></li>
+<li>Custom JS animations</li>
+<li>Custom animation libraries</li>
+</ol>
+<h2 id="functional-usage">Functional Usage</h2>
+<p>Using the AOS.js Library on components in the CMS</p>
+<ul>
+<li>Animating content within a Content Block Gravity can be done by web producers</li>
+<li>Animating widgets in the CMS does require minor development work as the front-end widget code will need to be updated, the benefit is all widgets on the  site now receive the animation</li>
+</ul>
+<p><a href="http://uat-dcm.equinix.com/testing/pete/aos/v2.3.4">http://uat-dcm.equinix.com/testing/pete/aos/v2.3.4</a>)</p>
+<h3 id="multiple-components">Multiple Components</h3>
+<p>Example: a Section Wrapper with multiple Content Blocks</p>
+<ol>
+<li>add a unique ID to the Section Wrapper to serve as the AOS anchor</li>
+<li>for each component (or element), add the following data attributes:
+<ol>
+<li><code>data-aos="&#x3C;transition>"</code>, e.g. fade-up</li>
+<li><code>data-aos-delay="&#x3C;value>"</code>, e.g. 150, 250, 350, etc.</li>
+<li><code>data-aos-anchor="&#x3C;unique_id>"</code>, unique_id = ID of the Section Wrapper (or wrapping element)</li>
+</ol>
+</li>
+</ol>
+<p>Example: Hero Banner with heading, supporting text, and CTA button</p>
+<ol>
+<li>add the data attribute to the element/component to be animated
+<ol>
+<li><code>data-aos="&#x3C;transition>"</code>, e.g. fade-up</li>
+</ol>
+</li>
+<li>for each addition component (or element), add the following data attributes:
+<ol>
+<li><code>data-aos="&#x3C;transition>"</code>, e.g. fade-up</li>
+<li><code>data-aos-delay="&#x3C;value>"</code>, e.g. 150, 300, etc.</li>
+<li><code>data-aos-anchor="&#x3C;unique_id>"</code>, unique_id = ID of the Section Wrapper (or wrapping element)</li>
+</ol>
+</li>
+</ol>
+<h3 id="single-component">Single Component</h3>
+<ol>
+<li>add the data attribute to the element/component to be animated
+<ol>
+<li><code>data-aos="&#x3C;transition>"</code>, e.g. fade-up</li>
+</ol>
+</li>
+</ol>
+<h2 id="reference">Reference</h2>
+<ul>
+<li>AOS.js Documentation: <a href="https://github.com/michalsnik/aos/tree/v2.3.4#basic-usage">https://github.com/michalsnik/aos/tree/v2.3.4#basic-usage</a> (version 2.3.4)</li>
+<li>AOS.js Demo Page: <a href="https://michalsnik.github.io/aos/">https://michalsnik.github.io/aos/</a></li>
+<li>dotCMS Demo Page: <a href="http://uat-dcm.equinix.com/testing/pete/aos/v2.3.4">http://uat-dcm.equinix.com/testing/pete/aos/v2.3.4</a></li>
+<li>Event Types: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event">https://developer.mozilla.org/en-US/docs/Web/API/Event</a></li>
+<li>Future Requirements: <a href="https://wiki.corp.equinix.com/confluence/display/wcm/AEM_Component+Animation+list">AEM_Component Animation list</a></li>
+<li>JavaScript Animation API: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API">https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API</a></li>
+</ul></body></html>

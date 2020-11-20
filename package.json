@@ -5,7 +5,8 @@
   "main": "cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm link && node cli.js -s init"
+    "start": "npm link && node cli.js -s init",
+    "server": "npm run node ./server/index.js"
   },
   "bin": {
     "sp": "cli.js"
@@ -13,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cenguidanos/node-markdown-parser": "^1.0.6-9",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "glob": "^7.1.6",

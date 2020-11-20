@@ -1,0 +1,223 @@
+<!doctype html><head><title>undefined for undefined</title><meta name="description" content="undefined" /></head><body><h1 id="custom-dotcms-api-for-copy">Custom dotCMS API for Copy</h1>
+<p>pass in ID to get single component copy back</p>
+<h2 id="user-story">User Story</h2>
+<p>As a product owner I want an API for retrieving copy so that it can be used in the ECX page.</p>
+<h2 id="business-impact">Business Impact</h2>
+<p>This also allows web production to author necessary data that appears in the ECX page.</p>
+<h2 id="interface-requirements">Interface Requirements</h2>
+<ul>
+<li>As a product owner I want to request copy from the CMS using a REST API.</li>
+<li>As a product owner I want to request copy from the CMS using a GET request for read only access.</li>
+<li>As a product owner I want an endpoint for requesting ECX copy from the CMS.</li>
+<li>As a product owner I want to use the query parameter <code>sl_locale={language-locale}</code> to request data for a specific language.
+<ul>
+<li>example: <code>sl_locale=en-GB</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="functional-requirements">Functional Requirements</h2>
+<ul>
+<li>As a product owner I want the API response to be a JSON format.</li>
+<li>As a product owner I want a 200 response when the request is same origin.</li>
+<li>As a product owner I want a 200 response when the request is from an allowed address:
+<ul>
+<li><code>localhost</code> (any port)</li>
+<li><code>https://eq-ecx-fabric-search.rocketsource.co/</code></li>
+</ul>
+</li>
+<li>As a product owner I want a 401 response when the request is not from an allowed origin.</li>
+<li>As a product owner when there is a 401 response I want the response body  to be <code>{ "message": "authentication failed or user doesn't have permissions for requested operation" }</code></li>
+<li>As a product owner I want a 400 response when the request could not be understood or was missing parameters.</li>
+<li>As a product owner where there is a 400 response I want the repsonse body to be <code>{ "message": "the request could not be understood or was missing required parameter" }</code></li>
+<li>As a product owner I want a 405 response when the requested method is not supported.</li>
+<li>As a product owner where there is a 400 response I want the repsonse body to be <code>{ "message": "the requested method is not supported" }</code></li>
+</ul>
+<h3 id="copy-object">Copy Object</h3>
+<ul>
+<li>As a product owner I want the response to have the following properties in this order: updatedAt, identifier, langLoc, copy.</li>
+<li>As a product owner I want the response to have a "updatedAt" property that returns a string where the value is the last modified datetime for the content instance.</li>
+<li>As a product owner I want the response to have an "identifier" property that returns a string where the value is the CMS identifier for that content instance.</li>
+<li>As a product owner I want the response to have a "langLoc" property that returns a string where the value is the language and locale for response data.</li>
+<li>As a product owner I want the response to have a "copy" property that returns a the Component Copy object.</li>
+<li>As a product owner I want the response to be in the language and locale for the request's TLD.
+<ul>
+<li>e.g. a request from equinix.co.jp would return the langugage/locale of ja-JP</li>
+</ul>
+</li>
+<li>As a product owner given the request includes a <code>sl_locale</code> query parameter I want the response to be in the matching language and locale.</li>
+<li>As a product owner given the response is for a translated language and there is text that is not translated I want the non-translated values to be in US English (or fallback to US English) so that there is always text present.</li>
+</ul>
+<h3 id="component-copy-object">Component Copy Object</h3>
+<ul>
+<li>As a product owner I want the Component Copy object to have the following properties in this order: HeroActionItem, ModalConfirmation, ModalContact, ModalShareResults, ResultsHeaderDefault, ResultsHeaderMetro, ResultsHeaderProvider, Tooltip, ResultsListMetro, ResultsListProvider, ResultsListBoth, ResultsListNoResults, ResultsListError</li>
+<li>As a product owner I want the objects in the Component Copy to return an object of properties and string values.</li>
+</ul>
+<h2 id="parameter-attributes">Parameter Attributes</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Property</th><th>Type</th><th>Description</th><th>Notes</th></tr></thead><tbody><tr><td><code>sl_locale</code></td><td><code>string</code></td><td>unique languaguage/locale expected by the client</td><td>e.g. ja-JP or ja-jp</td></tr></tbody></table>
+<h2 id="response-attributes">Response Attributes</h2>
+<h3 id="copy">Copy</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>A1</td><td><code>updatedAt</code></td><td><code>string</code></td><td>last modified datetime for the content instance</td></tr><tr><td>A2</td><td><code>identifier</code></td><td><code>string</code></td><td>identifier for the content instance</td></tr><tr><td>A3</td><td><code>langLoc</code></td><td><code>string</code></td><td>language and locale of the response data</td></tr><tr><td>A4</td><td><code>copy</code></td><td><code>object</code></td><td>components object for text to be used on the ECX page</td></tr></tbody></table>
+<h3 id="component-copy">Component Copy</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>ID</th><th>Property</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>A1</td><td><code>{property}</code></td><td><code>string</code></td><td>text to be used in components on the ECX page</td></tr></tbody></table>
+<h2 id="reference">Reference</h2>
+<p>Structure</p>
+<pre><code class="language-{">  "updatedAt": "2020-07-02T14:00:15.674Z",
+  "identifier": "bb592ad9-4ad6-465e-b4d2-4d8104d999d7",
+  "langLoc": "la-GL",
+  "copy": {
+    "component1Name": {
+      "componentText1": "text",
+      "componentText2": "text",
+    },
+    "component2Name": {
+      "componentText1": "text",
+      "componentText2": "text",
+      "componentText3": "text",
+    },
+    {...}
+  }
+}
+</code></pre>
+<p>ECX Instance</p>
+<pre><code class="language-{">  "updatedAt": "2020-07-02T14:00:15.674Z",
+  "identifier": "bb592ad9-4ad6-465e-b4d2-4d8104d999d7",
+  "langLoc": "la-GL",
+  "copy": {
+    "HeroActionItem": {
+      "conversationalFilter": "Show me {providers:All Service Providers} in {metros:All Metros}",
+      "clearFilters": "Clear",
+      "shareResults": "Share results"
+    },
+    "ModalConfirmation": {
+      "modalTitle": "Thank you for your interest",
+      "modalBody": "We will contact you in the next few business days to schedule your meeting.",
+      "primaryCTA": "Close"
+    },
+    "ModalContact": {
+      "modalTitle": "Connect to an ECX Fabric™ Service Provider",
+      "modalBody": "Learn more about connecting to the highest concentration on cloud service provider onramps across the globe. See how you can reduce latency, streamline connectivity with APIs and cut provisioning time from months to minutes.",
+      "modalFormID": "17007",
+      "primaryCTA": "Submit"
+    },
+    "ModalShareResults": {
+      "modalShareTitle": "Share Results",
+      "primaryCTA1": "Copy Link",
+      "primaryCTA2": "Link copied"
+    },
+    "ResultsHeaderDefault": {
+      "title": "Popular Providers"
+    },
+    "ResultsHeaderMetro": {
+      "mapAltText": "metro area map",
+      "titleSuffix": "Data Centers",
+      "primaryCTA": "Contact Us",
+      "secondaryCTA": "Learn more about this metro",
+      "asideTitle": "Nearby Metros"
+    },
+    "ResultsHeaderProvider": {
+      "bodyDefault": "Equinix partners with a vast majority of providers to enable enterprises to do more in the cloud by providing secure, direct, flexible network connections to a wide range of cloud service providers globally.",
+      "primaryCTA": "Get in Touch"
+    },
+    "Tooltip": {
+      "triggerTextLocal": "What is a local connection?",
+      "triggerTextRemote": "What is a remote connection?",
+      "definitionLocal": "Direct private connection to a cloud service provider that is present in the metro. Please use the search tool to find a provider suitable for your need",
+      "definitionRemote": "Virtual private connection to a cloud service provider that does not have a presence in the metro. Remote connections are available to all participating service providers within the region.",
+    },
+    "ResultsListMetro": {
+      "categoryListHeader1": "Popular Connections",
+      "categoryListHeader2": "All Connections"
+    },
+    "ResultsListProvider": {
+      "tabLabelLocal": "{provider} Local Connections",
+      "tabLabelRemote": "{provider} Remote Connections",
+      "CTA1": "View Available Providers",
+      "CTA2": "Metro Details"
+    },
+    "ResultsListBoth": {
+      "headline": "Search more provider availability",
+      "tabLabelLocal": "[Local Connections] in {metro}",
+      "tabLabelRemote": "[Remote Connections] in {metro}",
+      "CTALink1": "See all Metros with {provider}",
+      "CTALink2": "See all Providers in {metro}"
+    },
+    "ResultsListNoResults": {
+      "message": "Sorry, we couldn’t find any local or remote connections for {provider} in {metro}",
+      "altSearch": "Try searching all locations with {provider} or all providers in {metro}"
+    },
+    "ResultsListError": {
+      "header": "An error occurred during this search",
+      "altSearch": "Please {try again} or begin a {new search}"
+    }
+  }
+}
+</code></pre></body></html>
