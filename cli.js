@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 let argv = require('minimist')(process.argv.slice(2));
 const setup = require('./src/utils/setup');
 const project = require('./src/cli/project');
@@ -11,18 +12,18 @@ const meeting = require('./src/cli/meeting');
 // setup
 // npm start
 if (argv.s && argv.s === 'init') {
-  setup.init();
+    setup.init();
 }
 
 // Projects
 // list projects
 // sp list projects
 if (argv._[0] === 'list' && argv._[1] === 'projects') {
-  project.list();
+    project.list();
 }
 // create project
 if (argv.p && argv.p !== true && argv.d !== true) {
-  project.create(argv.p);
+    project.create(argv.p);
 }
 // delete project
 // | delete project | `sp -p {project_name} -d` |
@@ -38,17 +39,17 @@ if (argv.p && argv.p !== true && argv.d !== true) {
 // Notes
 // create note
 if (argv.n && argv.n !== true && argv.n !== true) {
-  note.create(argv.n);
+    note.create(argv.n);
 }
 
 // Logs
 // create log entry
 if (argv.l) {
-  log.create();
+    log.create();
 }
 
 // Meetings
 // create meeting
 if (argv.m) {
-  meeting.create(argv.m);
+    meeting.create(argv.m);
 }
