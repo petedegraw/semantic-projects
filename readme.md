@@ -51,7 +51,7 @@ Recommended Folder Structure
 | Action | Script |
 |-|-|
 | list projects | `sp list projects` |
-| create project | `sp -p {project_name}` |
+| create project | `sp -p '{project_name}'` |
 
 ### Notes
 
