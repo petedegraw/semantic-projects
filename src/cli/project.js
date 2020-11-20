@@ -2,8 +2,8 @@ const fs = require('fs');
 const fsp = require('fs').promises;
 var colors = require('colors');
 const inquirer = require('inquirer');
-const folder = require('../utils/folder');
 const file = require('../utils/file');
+const note = require('./note');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -19,13 +19,9 @@ exports.list = () => {
 }
 
 exports.create = (project_name) => {
-  
-  // verify or create root and active directories
-  folder.make(`./${process.env.dir_path}`);
-  folder.make(`./${process.env.dir_path}`);
 
   // create new project
-  let project_path = `./${process.env.dir_path}/${project_name}`;
+  let project_path = `${process.env.dir_path}/${project_name}`;
 
   // verify project with this project_name does not exist
   fs.stat(project_path, function(err, stat) {
@@ -35,10 +31,11 @@ exports.create = (project_name) => {
         // does not exist
         console.log(`creating new project: ${project_name}`.bold);
         
-        folder.make(project_path, project_name);
-        // file.copy('./templates/project.md', project_path, `${project_path}/${project_name}.md`);
+        fs.mkdir(project_path, {recursive: true}, (err) => {
+          if (err) throw err;
+          console.log('SUCCESS'.green, `${project_path} folder created`);
+        });
         
-        console.log('SUCCESS!'.green)
     } else {
         console.log('Some other error: ', err.code);
     }
