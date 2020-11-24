@@ -14,4 +14,4 @@ exports.make = (dir) => {
             console.log('Some other error: ', err.code);
         }
     });
-}
+};

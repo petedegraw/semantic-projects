@@ -16,7 +16,7 @@ exports.list = () => {
             }
         });
     });
-}
+};
 
 exports.create = (project_name) => {
 
@@ -40,7 +40,7 @@ exports.create = (project_name) => {
             console.log('Some other error: ', err.code);
         }
     });
-}
+};
 
 exports.deleteProjects = () => {
 
@@ -61,7 +61,7 @@ exports.deleteProjects = () => {
             }
         });
 
-}
+};
 
 exports.deleteProject = (project_name) => {
     inquirer
@@ -80,4 +80,4 @@ exports.deleteProject = (project_name) => {
                 console.info('Cancelled');
             }
         });
-}
+};

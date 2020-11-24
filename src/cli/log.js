@@ -22,7 +22,7 @@ exports.create = (file_name) => {
             if (file !== '.DS_Store') {
                 projects.push(file);
             }
-        })
+        });
 
         inquirer
             .prompt([{
@@ -80,4 +80,4 @@ exports.create = (file_name) => {
                 });
             });
     });
-}
+};

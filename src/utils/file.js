@@ -15,7 +15,7 @@ exports.copy = (src, dir, dest) => {
             console.log('Some other error: ', err.code);
         }
     });
-}
+};
 
 exports.write = (dest, data) => {
     fs.stat(dest, function(err, stat) {
@@ -31,4 +31,4 @@ exports.write = (dest, data) => {
             console.log('Some other error: ', err.code);
         }
     });
-}
+};

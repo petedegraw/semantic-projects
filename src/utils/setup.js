@@ -10,4 +10,4 @@ exports.init = () => {
     setTimeout(() => {
         console.log(`If that doesn't look right, rerun "echo 'dir_path=/Path/to/your/Projects' > .env" to set a new directory`.blue);
     }, 700);
-}
+};
